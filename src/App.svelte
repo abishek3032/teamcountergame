@@ -1,17 +1,34 @@
 <script>
-  let red = 0
-  let green = 0
-  let blue = 0
+  let redScore = 20
+  let blueScore = 20
+  const reset= () => {
+    redScore = 20
+    blueScore = 20
+  }
 </script>
-<div>
-  <h1>color picker</h1>
-  <h1>Red {red}</h1>
-  <input type="range" max="255" min="0" bind:value={red}>
-  <h1>Green {green}</h1>
-  <input type="range" max="255" min="0" bind:value={green}>
-  <h1>Blue {blue}</h1>
-  <input type="range" max="255" min="0" bind:value={blue}>
-  <div style="background: rgb({red}, {green}, {blue}); height:300px; width:300px">
+<div class="px-[5%]">
+  <div>
+    <div class="mt-5">
+      <p class="text-4xl">Team Red <span class="text-red-500">{redScore}</span></p>
+      <button on:click={()=>redScore++} class="bg-black px-4 py-2 text-white outline-none">+</button>
+      <button on:click={()=>redScore--} class="bg-black px-4 py-2 text-white outline-none">-</button>
+    </div>
+    <div>
+      <p class="text-4xl">Team Blue <span class="text-blue-500">{blueScore}</span></p>
+      <button on:click={()=>blueScore++} class="bg-black px-4 py-2 text-white outline-none">+</button>
+      <button on:click={()=>blueScore--} class="bg-black px-4 py-2 text-white outline-none">-</button>
+  
+      {#if redScore <= 0}
+        <p class="text-4xl text-blue-500">Blue Team Wins</p>
+        <button on:click={reset} class="block bg-yellow-300 text-black px-5 py-2 mt-2 outline-none">New Game</button>
+      {/if}
+      {#if blueScore <= 0}
+        <p class="text-4xl text-red-500">Red Team Wins</p>
+        <button on:click={reset} class="block bg-yellow-300 text-black px-5 py-2 mt-2 outline-none">New Game</button>
+      {/if}
+      {#if redScore >0  && blueScore > 0}
+        <button on:click={reset} class="block bg-yellow-300 text-black px-5 py-2 mt-2 outline-none">Reset Game</button>
+      {/if}
+    </div>
   </div>
-  <p>rgb({red}, {green}, {blue})</p>
 </div>
